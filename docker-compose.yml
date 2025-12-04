@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  voice-agent:
+    build: .
+    container_name: alex-voice-agent
+    restart: unless-stopped
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
+      - ELEVENLABS_VOICE_ID=${ELEVENLABS_VOICE_ID}
+      - ASTERISK_HOST=${ASTERISK_HOST:-host.docker.internal}
+      - ASTERISK_PORT=${ASTERISK_PORT:-8088}
+      - ASTERISK_USER=${ASTERISK_USER}
+      - ASTERISK_PASS=${ASTERISK_PASS}
+      - ASTERISK_APP_NAME=${ASTERISK_APP_NAME:-voice-agent}
+    # If Asterisk is running on the host machine, we might need host networking or special DNS
+    # extra_hosts:
+    #   - "host.docker.internal:host-gateway" 
