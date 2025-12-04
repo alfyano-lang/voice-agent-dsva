@@ -3,3 +3,6 @@ elevenlabs
 ari
 python-dotenv
 requests
+fastapi
+uvicorn
+websockets

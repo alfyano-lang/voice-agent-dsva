@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex | DSVA Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <i class="fa-solid fa-wave-square"></i>
+                </div>
+                <h2>Alex <span class="badge">AI</span></h2>
+            </div>
+            
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-tab="dashboard">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="logs">
+                    <i class="fa-solid fa-list-ul"></i>
+                    <span>Call Logs</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="simulator">
+                    <i class="fa-solid fa-robot"></i>
+                    <span>Simulator</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="settings">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <span class="dot pulse"></span>
+                    <span>System Online</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-bar">
+                <div class="breadcrumbs">
+                    <span class="text-muted">Overview /</span>
+                    <span class="current-page">Dashboard</span>
+                </div>
+                <div class="user-profile">
+                    <div class="notification-bell">
+                        <i class="fa-regular fa-bell"></i>
+                        <span class="notification-dot"></span>
+                    </div>
+                    <div class="avatar">
+                        <img src="https://ui-avatars.com/api/?name=Admin&background=06b6d4&color=fff" alt="Admin">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard View -->
+            <div id="dashboard-view" class="view-section active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon blue">
+                            <i class="fa-solid fa-phone-volume"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Total Calls</h3>
+                            <p class="value">1,284</p>
+                            <span class="trend positive">+12% this week</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon purple">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Avg. Duration</h3>
+                            <p class="value">2m 14s</p>
+                            <span class="trend neutral">-2% this week</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon green">
+                            <i class="fa-solid fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Success Rate</h3>
+                            <p class="value">98.5%</p>
+                            <span class="trend positive">+1.2% this week</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon orange">
+                            <i class="fa-solid fa-bolt"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>Latency</h3>
+                            <p class="value">240ms</p>
+                            <span class="trend positive">Optimal</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-grid">
+                    <div class="card recent-activity">
+                        <div class="card-header">
+                            <h3>Live Activity</h3>
+                            <button class="btn-icon"><i class="fa-solid fa-ellipsis"></i></button>
+                        </div>
+                        <div class="activity-list">
+                            <!-- Items will be injected via JS -->
+                            <div class="activity-item">
+                                <div class="activity-icon call-in">
+                                    <i class="fa-solid fa-phone-arrow-down-left"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <h4>Incoming Call</h4>
+                                    <p>From +1 (555) 012-3456</p>
+                                </div>
+                                <span class="time">Just now</span>
+                            </div>
+                            <div class="activity-item">
+                                <div class="activity-icon success">
+                                    <i class="fa-solid fa-calendar-check"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <h4>Appointment Booked</h4>
+                                    <p>Consultation for Sarah Connor</p>
+                                </div>
+                                <span class="time">5m ago</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card system-health">
+                        <div class="card-header">
+                            <h3>System Health</h3>
+                        </div>
+                        <div class="health-metrics">
+                            <div class="metric">
+                                <div class="metric-label">
+                                    <span>CPU Usage</span>
+                                    <span>24%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 24%"></div>
+                                </div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">
+                                    <span>Memory</span>
+                                    <span>42%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress" style="width: 42%"></div>
+                                </div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">
+                                    <span>API Quota (OpenAI)</span>
+                                    <span>65%</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress warning" style="width: 65%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Simulator View -->
+            <div id="simulator-view" class="view-section" style="display: none;">
+                <div class="chat-interface">
+                    <div class="chat-header">
+                        <div class="agent-info">
+                            <div class="avatar small">
+                                <img src="https://ui-avatars.com/api/?name=Alex&background=0f172a&color=06b6d4" alt="Alex">
+                            </div>
+                            <div>
+                                <h3>Alex (Simulation)</h3>
+                                <span class="status-text">Online</span>
+                            </div>
+                        </div>
+                        <div class="chat-actions">
+                            <button class="btn-secondary" id="clear-chat">Clear Chat</button>
+                        </div>
+                    </div>
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="message system">
+                            <p>Simulation started. Type a message to interact with Alex.</p>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" id="user-input" placeholder="Type your message here...">
+                        <button class="btn-primary" id="send-btn">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

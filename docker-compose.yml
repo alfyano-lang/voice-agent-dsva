@@ -14,6 +14,8 @@ services:
       - ASTERISK_USER=${ASTERISK_USER}
       - ASTERISK_PASS=${ASTERISK_PASS}
       - ASTERISK_APP_NAME=${ASTERISK_APP_NAME:-voice-agent}
+    ports:
+      - "8000:8000"
     # If Asterisk is running on the host machine, we might need host networking or special DNS
     # extra_hosts:
     #   - "host.docker.internal:host-gateway" 

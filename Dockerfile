@@ -18,11 +18,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the rest of the application code
 COPY . .
 
-# Expose ports if necessary (ARI usually connects OUT to Asterisk, but if we have a web hook, we might need EXPOSE)
-# For this agent, it acts as a client to ARI, so no inbound ports strictly needed unless we add a web interface.
+# Expose the web server port
+EXPOSE 8000
 
 # Define environment variable defaults
 ENV PYTHONUNBUFFERED=1
 
-# Run the application
-CMD ["python", "ari_app.py"]
+# Run the application (Web Server + ARI)
+CMD ["python", "server.py"]
