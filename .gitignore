@@ -1,0 +1,23 @@
+# Security & Local Environment
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv
+venv/
+env/
+
+# Logs
+*.log
+logs/
+
+# Runtime Data
+*.mp3
+*.wav
+output/
+
+# IDE & OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
