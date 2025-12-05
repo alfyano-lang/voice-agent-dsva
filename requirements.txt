@@ -1,6 +1,6 @@
 openai
 elevenlabs
-ari-py
+git+https://github.com/asterisk/ari-py.git
 python-dotenv
 requests
 fastapi

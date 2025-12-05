@@ -7,6 +7,7 @@ WORKDIR /app
 # Install system dependencies (needed for some python packages or audio tools)
 RUN apt-get update && apt-get install -y \
     gcc \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the requirements file into the container
