@@ -1,0 +1,82 @@
+/* Footer */
+.app-footer {
+    background-color: var(--bg-sidebar);
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    margin-top: auto;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h4 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.footer-section p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.footer-section a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-section a:hover {
+    color: var(--primary);
+}
+
+.newsletter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.newsletter-form input {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 0.6rem;
+    border-radius: 6px;
+    color: white;
+    outline: none;
+}
+
+.btn-primary.small {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+}
+
+.footer-bottom p {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+/* Adjust main content to allow scrolling for footer */
+.main-content {
+    overflow-y: auto;
+}
+
+.view-section {
+    height: auto;
+    min-height: calc(100vh - 70px - 300px);
+    /* Adjust based on footer height */
+}
