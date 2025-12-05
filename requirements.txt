@@ -1,6 +1,6 @@
 openai
 elevenlabs
-ari
+ari-py
 python-dotenv
 requests
 fastapi
