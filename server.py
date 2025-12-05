@@ -42,18 +42,22 @@ class ChatResponse(BaseModel):
 
 class ConfigRequest(BaseModel):
     webhook_url: str
+    output_format: str = "standard"
 
 # API Endpoints
 @app.get("/api/config")
 async def get_config():
-    return {"webhook_url": webhook_service.get_webhook_url()}
+    return {
+        "webhook_url": webhook_service.get_webhook_url(),
+        "output_format": webhook_service.get_output_format()
+    }
 
 @app.post("/api/config")
 async def update_config(config: ConfigRequest):
-    success = webhook_service.set_webhook_url(config.webhook_url)
+    success = webhook_service.set_config(config.webhook_url, config.output_format)
     if not success:
         raise HTTPException(status_code=500, detail="Failed to save configuration")
-    return {"status": "updated", "webhook_url": config.webhook_url}
+    return {"status": "updated"}
 
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat_endpoint(request: ChatRequest):
@@ -62,15 +66,19 @@ async def chat_endpoint(request: ChatRequest):
         conversation = request.history + [{"role": "user", "content": request.message}]
         response_text = llm_service.get_response(conversation)
         
-        # Check if we should trigger webhook based on response content
-        # In a real app, the LLM might return structured data or a specific flag.
-        # Here we use simple keyword matching from the prompt logic.
+        # Trigger Webhook
         if "logged your request" in response_text or "transfer_to_owner" in response_text:
-            webhook_service.send_data("interaction_logged", {
+            webhook_response = webhook_service.send_data("interaction_logged", {
                 "user_message": request.message,
                 "agent_response": response_text,
                 "source": "web_simulator"
             })
+            
+            # Handle Webhook Response (Override Agent)
+            if webhook_response and isinstance(webhook_response, dict):
+                if "response_override" in webhook_response:
+                    response_text = webhook_response["response_override"]
+                    logger.info(f"Agent response overridden by webhook: {response_text}")
 
         return ChatResponse(response=response_text)
     except Exception as e:

@@ -98,6 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Settings Logic
     const webhookInput = document.getElementById('webhook-url');
+    const outputFormatInput = document.getElementById('output-format');
     const saveSettingsBtn = document.getElementById('save-settings-btn');
     const settingsStatus = document.getElementById('settings-status');
 
@@ -110,6 +111,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (data.webhook_url) {
                     webhookInput.value = data.webhook_url;
                 }
+                if (data.output_format) {
+                    outputFormatInput.value = data.output_format;
+                }
             }
         } catch (error) {
             console.error('Failed to load settings:', error);
@@ -119,6 +123,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Save Settings
     saveSettingsBtn.addEventListener('click', async () => {
         const url = webhookInput.value.trim();
+        const fmt = outputFormatInput.value;
+
         if (!url) {
             settingsStatus.textContent = "Please enter a valid URL.";
             settingsStatus.style.color = "var(--danger)";
@@ -132,7 +138,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch('/api/config', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ webhook_url: url })
+                body: JSON.stringify({
+                    webhook_url: url,
+                    output_format: fmt
+                })
             });
 
             if (response.ok) {

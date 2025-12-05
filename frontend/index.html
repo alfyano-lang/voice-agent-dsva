@@ -227,10 +227,20 @@
                             Enter a URL to receive JSON data when the agent collects information (e.g., bookings,
                             inquiries).
                         </p>
-                        <div style="display: flex; gap: 1rem;">
-                            <input type="url" id="webhook-url" placeholder="https://hook.us1.make.com/..."
-                                style="flex: 1; background-color: var(--bg-dark); border: 1px solid var(--border); padding: 0.8rem; border-radius: 8px; color: white; outline: none;">
-                            <button id="save-settings-btn" class="btn-primary">Save Changes</button>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <div style="flex: 2;">
+                                <input type="url" id="webhook-url" placeholder="https://hook.us1.make.com/..."
+                                    style="width: 100%; background-color: var(--bg-dark); border: 1px solid var(--border); padding: 0.8rem; border-radius: 8px; color: white; outline: none;">
+                            </div>
+                            <div style="flex: 1; min-width: 150px;">
+                                <select id="output-format"
+                                    style="width: 100%; background-color: var(--bg-dark); border: 1px solid var(--border); padding: 0.8rem; border-radius: 8px; color: white; outline: none; cursor: pointer;">
+                                    <option value="standard">Standard JSON</option>
+                                    <option value="flat">Flat JSON</option>
+                                </select>
+                            </div>
+                            <button id="save-settings-btn" class="btn-primary" style="min-width: 120px;">Save
+                                Changes</button>
                         </div>
                         <p id="settings-status" style="margin-top: 0.5rem; font-size: 0.9rem; height: 1.2rem;"></p>
                     </div>

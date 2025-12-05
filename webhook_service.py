@@ -25,8 +25,12 @@ class WebhookService:
     def get_webhook_url(self):
         return self.config.get("webhook_url", "")
 
-    def set_webhook_url(self, url):
+    def get_output_format(self):
+        return self.config.get("output_format", "standard")
+
+    def set_config(self, url, output_format):
         self.config["webhook_url"] = url
+        self.config["output_format"] = output_format
         try:
             with open(self.config_file, 'w') as f:
                 json.dump(self.config, f)
@@ -37,19 +41,31 @@ class WebhookService:
 
     def send_data(self, event_type, payload):
         url = self.get_webhook_url()
+        fmt = self.get_output_format()
+        
         if not url:
-            logger.info("No webhook URL configured. Skipping webhook trigger.")
-            return False
+            return None
 
         try:
-            data = {
-                "event": event_type,
-                "data": payload
-            }
+            # Format Data
+            if fmt == "flat":
+                data = payload.copy()
+                data["event"] = event_type
+            else: # standard
+                data = {
+                    "event": event_type,
+                    "data": payload
+                }
+
             response = requests.post(url, json=data, timeout=5)
             response.raise_for_status()
-            logger.info(f"Webhook sent successfully to {url}")
-            return True
+            
+            # Try to parse response
+            try:
+                return response.json()
+            except:
+                return {"raw_response": response.text}
+
         except Exception as e:
             logger.error(f"Failed to send webhook: {e}")
-            return False
+            return None
