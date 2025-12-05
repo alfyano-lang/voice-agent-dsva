@@ -95,4 +95,64 @@ document.addEventListener('DOMContentLoaded', () => {
     clearBtn.addEventListener('click', () => {
         chatMessages.innerHTML = '<div class="message system"><p>Simulation started. Type a message to interact with Alex.</p></div>';
     });
+
+    // Settings Logic
+    const webhookInput = document.getElementById('webhook-url');
+    const saveSettingsBtn = document.getElementById('save-settings-btn');
+    const settingsStatus = document.getElementById('settings-status');
+
+    // Load Settings
+    async function loadSettings() {
+        try {
+            const response = await fetch('/api/config');
+            if (response.ok) {
+                const data = await response.json();
+                if (data.webhook_url) {
+                    webhookInput.value = data.webhook_url;
+                }
+            }
+        } catch (error) {
+            console.error('Failed to load settings:', error);
+        }
+    }
+
+    // Save Settings
+    saveSettingsBtn.addEventListener('click', async () => {
+        const url = webhookInput.value.trim();
+        if (!url) {
+            settingsStatus.textContent = "Please enter a valid URL.";
+            settingsStatus.style.color = "var(--danger)";
+            return;
+        }
+
+        saveSettingsBtn.disabled = true;
+        saveSettingsBtn.textContent = "Saving...";
+
+        try {
+            const response = await fetch('/api/config', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ webhook_url: url })
+            });
+
+            if (response.ok) {
+                settingsStatus.textContent = "Settings saved successfully!";
+                settingsStatus.style.color = "var(--success)";
+            } else {
+                throw new Error('Failed to save');
+            }
+        } catch (error) {
+            settingsStatus.textContent = "Error saving settings.";
+            settingsStatus.style.color = "var(--danger)";
+        } finally {
+            saveSettingsBtn.disabled = false;
+            saveSettingsBtn.textContent = "Save Changes";
+            setTimeout(() => {
+                settingsStatus.textContent = "";
+            }, 3000);
+        }
+    });
+
+    // Initial Load
+    loadSettings();
 });

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +11,7 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <div class="app-container">
         <!-- Sidebar -->
@@ -20,7 +22,7 @@
                 </div>
                 <h2>Alex <span class="badge">AI</span></h2>
             </div>
-            
+
             <nav class="nav-menu">
                 <a href="#" class="nav-item active" data-tab="dashboard">
                     <i class="fa-solid fa-chart-pie"></i>
@@ -186,7 +188,8 @@
                     <div class="chat-header">
                         <div class="agent-info">
                             <div class="avatar small">
-                                <img src="https://ui-avatars.com/api/?name=Alex&background=0f172a&color=06b6d4" alt="Alex">
+                                <img src="https://ui-avatars.com/api/?name=Alex&background=0f172a&color=06b6d4"
+                                    alt="Alex">
                             </div>
                             <div>
                                 <h3>Alex (Simulation)</h3>
@@ -211,8 +214,32 @@
                 </div>
             </div>
 
+            <!-- Settings View -->
+            <div id="settings-view" class="view-section" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Integration Settings</h3>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label for="webhook-url"
+                            style="display: block; margin-bottom: 0.5rem; color: var(--text-muted);">Webhook URL</label>
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.8rem;">
+                            Enter a URL to receive JSON data when the agent collects information (e.g., bookings,
+                            inquiries).
+                        </p>
+                        <div style="display: flex; gap: 1rem;">
+                            <input type="url" id="webhook-url" placeholder="https://hook.us1.make.com/..."
+                                style="flex: 1; background-color: var(--bg-dark); border: 1px solid var(--border); padding: 0.8rem; border-radius: 8px; color: white; outline: none;">
+                            <button id="save-settings-btn" class="btn-primary">Save Changes</button>
+                        </div>
+                        <p id="settings-status" style="margin-top: 0.5rem; font-size: 0.9rem; height: 1.2rem;"></p>
+                    </div>
+                </div>
+            </div>
+
         </main>
     </div>
     <script src="assets/js/app.js"></script>
 </body>
+
 </html>

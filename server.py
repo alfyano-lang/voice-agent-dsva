@@ -10,6 +10,7 @@ from typing import List, Dict
 # Import our services
 from llm_service import LLMService
 from ari_app import VoiceAgentApp
+from webhook_service import WebhookService
 import logging
 
 # Setup Logging
@@ -29,6 +30,7 @@ app.add_middleware(
 
 # Initialize Services
 llm_service = LLMService()
+webhook_service = WebhookService()
 
 # Models
 class ChatRequest(BaseModel):
@@ -38,17 +40,38 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     response: str
 
+class ConfigRequest(BaseModel):
+    webhook_url: str
+
 # API Endpoints
+@app.get("/api/config")
+async def get_config():
+    return {"webhook_url": webhook_service.get_webhook_url()}
+
+@app.post("/api/config")
+async def update_config(config: ConfigRequest):
+    success = webhook_service.set_webhook_url(config.webhook_url)
+    if not success:
+        raise HTTPException(status_code=500, detail="Failed to save configuration")
+    return {"status": "updated", "webhook_url": config.webhook_url}
+
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat_endpoint(request: ChatRequest):
     try:
         # Construct history for LLM
-        # The frontend sends full history or we maintain it. 
-        # For simplicity, let's assume frontend sends context or we just use the message for single turn in sim.
-        # But LLMService expects a list.
-        
         conversation = request.history + [{"role": "user", "content": request.message}]
         response_text = llm_service.get_response(conversation)
+        
+        # Check if we should trigger webhook based on response content
+        # In a real app, the LLM might return structured data or a specific flag.
+        # Here we use simple keyword matching from the prompt logic.
+        if "logged your request" in response_text or "transfer_to_owner" in response_text:
+            webhook_service.send_data("interaction_logged", {
+                "user_message": request.message,
+                "agent_response": response_text,
+                "source": "web_simulator"
+            })
+
         return ChatResponse(response=response_text)
     except Exception as e:
         logger.error(f"Chat API Error: {e}")
